@@ -1698,6 +1698,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c539aa4fa1bac4b4da61761b0699b48b, type: 3}
+--- !u!1 &809283961 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 459366667806877226, guid: e56487015212b5f4191e3da47fbc4883,
+    type: 3}
+  m_PrefabInstance: {fileID: 459366666067211110}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &836897506 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 114691982231484394, guid: c539aa4fa1bac4b4da61761b0699b48b,
@@ -1863,6 +1869,58 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 847428421}
   m_CullTransparentMesh: 0
+--- !u!1 &856266417
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 856266419}
+  - component: {fileID: 856266418}
+  m_Layer: 0
+  m_Name: CantidadObjetos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &856266418
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 856266417}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0028673ddc497d34fbea96a5af32c562, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  esferas: {fileID: 1511468028}
+  cilindro: {fileID: 861484613}
+  cubo: {fileID: 809283961}
+--- !u!4 &856266419
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 856266417}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -2.056401, y: -1.7361908, z: 1.6174974}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 13
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &861484613 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5071285556856290017, guid: efa562093f4a58f4b9fdee6a1c7da5d0,
+    type: 3}
+  m_PrefabInstance: {fileID: 5071285556519880426}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &872413343
 GameObject:
   m_ObjectHideFlags: 0
@@ -1874,7 +1932,7 @@ GameObject:
   - component: {fileID: 872413345}
   - component: {fileID: 872413344}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: Objetivo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3606,6 +3664,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 26558ae1d2e7243728486d789f984c53, type: 3}
+--- !u!1 &1511468028 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3208896603893487150, guid: 883208bdfd428184c939f0f78d339296,
+    type: 3}
+  m_PrefabInstance: {fileID: 3208896604690690613}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1585904546
 GameObject:
   m_ObjectHideFlags: 0
