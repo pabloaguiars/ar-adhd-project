@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class cantidadObjetos : MonoBehaviour
 {
-    public GameObject esferas, cilindro, cubo;
+    public GameObject esferas, paleta, cubo;
     private Vector3 posicion;
     private float posicionX, posicionY;
     private float[] posicionZ = new float[6];
-    private int cantidadEsferas, cantidadCilindros, cantidadCubos,MaxObjetos;
+    private int cantidadEsferas, cantidadPaletas, cantidadCubos,MaxObjetos;
     // Start is called before the first frame update
     void Start()
     {
@@ -24,7 +24,7 @@ public class cantidadObjetos : MonoBehaviour
 
         MaxObjetos = 2;
         cantidadEsferas = Random.Range(0, MaxObjetos);
-        cantidadCilindros = Random.Range(0, MaxObjetos);
+        cantidadPaletas = Random.Range(0, MaxObjetos);
         cantidadCubos = Random.Range(0, MaxObjetos);
 
         for (int conta = 0; conta <= cantidadEsferas; conta++)
@@ -32,10 +32,10 @@ public class cantidadObjetos : MonoBehaviour
             GameObject Esferas = Instantiate(esferas, posicion, Quaternion.identity);
             Esferas.name = "Esfera";
         }
-        for (int conta2 = 0; conta2 <= cantidadCilindros; conta2++)
+        for (int conta2 = 0; conta2 <= cantidadPaletas; conta2++)
         {
-            GameObject Cilindro = Instantiate(cilindro, posicion, Quaternion.identity);
-            Cilindro.name = "Cilindro";
+            GameObject Paleta = Instantiate(paleta, posicion, Quaternion.Euler(-89,-43,43));
+            Paleta.name = "Paleta";
         }
         for (int conta3 = 0; conta3 <= cantidadCubos; conta3++)
         {

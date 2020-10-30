@@ -59,19 +59,9 @@ namespace GoogleARCore.Examples.HelloAR
         public Camera FirstPersonCamera;
 
         /// <summary>
-        /// A prefab to place when a raycast from a user touch hits a vertical plane.
-        /// </summary>
-        public GameObject GameObjectVerticalPlanePrefab;
-
-        /// <summary>
         /// A prefab to place when a raycast from a user touch hits a horizontal plane.
         /// </summary>
         public GameObject GameObjectHorizontalPlanePrefab;
-
-        /// <summary>
-        /// A prefab to place when a raycast from a user touch hits a feature point.
-        /// </summary>
-        public GameObject GameObjectPointPrefab;
 
         /// <summary>
         /// The rotation in degrees need to apply to prefab when it is placed.
@@ -84,6 +74,7 @@ namespace GoogleARCore.Examples.HelloAR
         /// </summary>
         private bool _isQuitting = false;
 
+        public bool spawn = false;
         /// <summary>
         /// The Unity Awake() method.
         /// </summary>
@@ -103,7 +94,7 @@ namespace GoogleARCore.Examples.HelloAR
 
             // If the player has not touched the screen, we are done with this update.
             Touch touch;
-            if (Input.touchCount < 1 || (touch = Input.GetTouch(0)).phase != TouchPhase.Began)
+            if (Input.touchCount < 1 || (touch = Input.GetTouch(0)).phase != TouchPhase.Began || spawn == true)
             {
                 return;
             }
@@ -156,14 +147,14 @@ namespace GoogleARCore.Examples.HelloAR
                     }
                     else if (hit.Trackable is FeaturePoint)
                     {
-                        prefab = GameObjectPointPrefab;
+                        prefab = null;
                     }
                     else if (hit.Trackable is DetectedPlane)
                     {
                         DetectedPlane detectedPlane = hit.Trackable as DetectedPlane;
                         if (detectedPlane.PlaneType == DetectedPlaneType.Vertical)
                         {
-                            prefab = GameObjectVerticalPlanePrefab;
+                            prefab = null;
                         }
                         else
                         {
@@ -177,6 +168,8 @@ namespace GoogleARCore.Examples.HelloAR
 
                     // Instantiate prefab at the hit pose.
                     var gameObject = Instantiate(prefab, hit.Pose.position, hit.Pose.rotation);
+
+                    spawn = true;
 
                     // Compensate for the hitPose rotation facing away from the raycast (i.e.
                     // camera).

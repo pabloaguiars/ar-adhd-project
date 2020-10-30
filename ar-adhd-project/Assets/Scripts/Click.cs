@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class Click : MonoBehaviour
 {
-    public GameObject TextBox,message;
+    public GameObject TextBox, message;
     string nombre;
     private float posicionX, posicionY;
     private float[] posicionZ = new float[6];
@@ -23,8 +23,8 @@ public class Click : MonoBehaviour
         posicionZ[4] = -6;
         posicionZ[5] = -7;
 
-        nombre = gameObject.name;
         transform.position = new Vector3(Random.Range(-posicionX,posicionX), Random.Range(-posicionY,posicionY), posicionZ[Random.Range(0,5)]);
+        nombre = gameObject.name;
     }
 
     // Update is called once per frame
@@ -35,6 +35,7 @@ public class Click : MonoBehaviour
 
     public void OnMouseDown()
     {
+        
         if (nombre == TextBox.GetComponent<Text>().text)
         {
             message.GetComponent<Text>().text = "Bien hecho";
