@@ -16,11 +16,12 @@ public class SeleccionaObjeto : MonoBehaviour
         figuras[1] = "Esfera";
         figuras[2] = "Paleta";
         numero = Random.Range(0, 3);
+        TextBox.GetComponent<Text>().text = figuras[numero];
     }
 
     // Update is called once per frame
     void Update()
     {
-        TextBox.GetComponent<Text>().text = figuras[numero];
+        
     }
 }

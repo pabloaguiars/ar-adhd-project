@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class cantidadObjetos : MonoBehaviour
 {
@@ -8,7 +9,9 @@ public class cantidadObjetos : MonoBehaviour
     private Vector3 posicion;
     private float posicionX, posicionY;
     private float[] posicionZ = new float[6];
-    private int cantidadEsferas, cantidadPaletas, cantidadCubos,MaxObjetos;
+    private int cantidadEsferas, cantidadPaletas, cantidadCubos, MaxObjetos;
+    private string nombre;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -22,22 +25,25 @@ public class cantidadObjetos : MonoBehaviour
         posicionZ[4] = -6;
         posicionZ[5] = -7;
 
-        MaxObjetos = 2;
-        cantidadEsferas = Random.Range(0, MaxObjetos);
-        cantidadPaletas = Random.Range(0, MaxObjetos);
-        cantidadCubos = Random.Range(0, MaxObjetos);
+        MaxObjetos = 20;
+        cantidadEsferas = Random.Range(3, MaxObjetos);
+        cantidadPaletas = Random.Range(3, MaxObjetos);
+        cantidadCubos = Random.Range(3, MaxObjetos);
 
-        for (int conta = 0; conta <= cantidadEsferas; conta++)
+        nombre = gameObject.name;
+
+
+        for (int conta = 1; conta < cantidadEsferas; conta++)
         {
             GameObject Esferas = Instantiate(esferas, posicion, Quaternion.identity);
             Esferas.name = "Esfera";
         }
-        for (int conta2 = 0; conta2 <= cantidadPaletas; conta2++)
+        for (int conta2 = 1; conta2 < cantidadPaletas; conta2++)
         {
             GameObject Paleta = Instantiate(paleta, posicion, Quaternion.Euler(-89,-43,43));
             Paleta.name = "Paleta";
         }
-        for (int conta3 = 0; conta3 <= cantidadCubos; conta3++)
+        for (int conta3 = 1; conta3 < cantidadCubos; conta3++)
         {
             GameObject Cubo = Instantiate(cubo, posicion, Quaternion.identity);
             Cubo.name = "Cubo";
@@ -45,8 +51,10 @@ public class cantidadObjetos : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-       
+        
     }
+
+
 }

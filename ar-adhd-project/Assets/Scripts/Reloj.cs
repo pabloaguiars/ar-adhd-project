@@ -68,31 +68,31 @@ public class Reloj : MonoBehaviour
         Crono.text = textoReloj;
     }
 
-    public void Pausar()
-    {
-        if(!estadoPausa)
-        {
-            estadoPausa = true;
-            tiempoPausa = escalaTiempo;
-            escalaTiempo = 0;
-        }
-    }
+    //public void Pausar()
+    //{
+    //    if(!estadoPausa)
+    //    {
+    //        estadoPausa = true;
+    //        tiempoPausa = escalaTiempo;
+    //        escalaTiempo = 0;
+    //    }
+    //}
 
-    public void Continuar()
-    {
-        if(estadoPausa)
-        {
-            estadoPausa = false;
-            escalaTiempo = tiempoPausa;
-        }
-    }
+    //public void Continuar()
+    //{
+    //    if(estadoPausa)
+    //    {
+    //        estadoPausa = false;
+    //        escalaTiempo = tiempoPausa;
+    //    }
+    //}
 
-    public void Reiniciar()
-    {
-        estadoPausa = false;
-        escalaTiempo = tiempoInicial;
-        tiempoAMostrarEnSegundos = tiempoInicial;
-        actualizaReloj(tiempoAMostrarEnSegundos);
+    //public void Reiniciar()
+    //{
+    //    estadoPausa = false;
+    //    escalaTiempo = tiempoInicial;
+    //    tiempoAMostrarEnSegundos = tiempoInicial;
+    //    actualizaReloj(tiempoAMostrarEnSegundos);
 
-    }
+    //}
 }

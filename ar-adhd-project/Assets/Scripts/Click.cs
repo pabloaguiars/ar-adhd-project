@@ -6,11 +6,13 @@ using UnityEngine.UI;
 
 public class Click : MonoBehaviour
 {
-    public GameObject TextBox, message;
-    string nombre;
+    public GameObject TextBox, message, Crono;
+    private string nombre;
     private float posicionX, posicionY;
     private float[] posicionZ = new float[6];
-
+    private int toquesBuenos, toquesMalos,toques;
+    private bool destruido;
+   
     // Start is called before the first frame update
     void Start()
     {
@@ -25,25 +27,52 @@ public class Click : MonoBehaviour
 
         transform.position = new Vector3(Random.Range(-posicionX,posicionX), Random.Range(-posicionY,posicionY), posicionZ[Random.Range(0,5)]);
         nombre = gameObject.name;
-    }
-
-    // Update is called once per frame
-    void FixedUpdate()
-    {
-
+    
     }
 
     public void OnMouseDown()
     {
-        
         if (nombre == TextBox.GetComponent<Text>().text)
         {
-            message.GetComponent<Text>().text = "Bien hecho";
+            message.GetComponent<Text>().text = "Bien hecho!";
             Destroy(gameObject);
         }
         else
         {
             message.GetComponent<Text>().text = "Uff cerca!";
+        }
+    }
+    // Update is called once per frame
+    void Update()
+    {
+        //Definimos cuando sera un error y un acierto
+        if (message.GetComponent<Text>().text == "Bien hecho!")
+        {
+            destruido = true;
+        }
+        else if (message.GetComponent<Text>().text == "Uff cerca!")
+        {
+            destruido = false;
+        }
+        else
+        {
+            destruido = false;
+        }
+        //Contamos los aciertos y errores
+       if (Input.GetMouseButtonDown(0))
+        {
+            if(destruido)
+            {
+                toquesBuenos += 1;
+                Debug.Log("Aciertos:"+toquesBuenos);
+            }
+            else if(!destruido)
+            {
+                toquesMalos += 1;
+                Debug.Log("Errores:"+toquesMalos);
+            }
+            toques += 1;
+            Debug.Log("Clics:" + toques);
         }
     }
 }
