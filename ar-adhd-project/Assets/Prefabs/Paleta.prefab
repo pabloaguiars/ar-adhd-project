@@ -11,8 +11,10 @@ GameObject:
   - component: {fileID: 7973528395989359482}
   - component: {fileID: 7995084885205849021}
   - component: {fileID: 3490552603695711782}
-  - component: {fileID: 2510900094132042312}
   - component: {fileID: 2739058637238308225}
+  - component: {fileID: 4607122138194887224}
+  - component: {fileID: 6987822147408539874}
+  - component: {fileID: 2989952393680631865}
   m_Layer: 0
   m_Name: Paleta
   m_TagString: Untagged
@@ -81,19 +83,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &2510900094132042312
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5869251226023404198}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.019021157, y: 0.019999996, z: 0.04113427}
-  m_Center: {x: 1.0178506e-15, y: -2.2143181e-11, z: -0.010567137}
 --- !u!114 &2739058637238308225
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -106,5 +95,47 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65853d18bfbef0549bf59fe6eae21beb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TextBox: {fileID: 0}
+  Objetivo: {fileID: 0}
   message: {fileID: 0}
+--- !u!54 &4607122138194887224
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5869251226023404198}
+  serializedVersion: 2
+  m_Mass: 0.0000001
+  m_Drag: 0
+  m_AngularDrag: 0
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
+--- !u!114 &6987822147408539874
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5869251226023404198}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96401dfd30198344dbfdaac9b1c787c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!136 &2989952393680631865
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5869251226023404198}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.01
+  m_Height: 0.042
+  m_Direction: 2
+  m_Center: {x: 0.0009148359, y: 0.000000059602243, z: -0.010567165}
