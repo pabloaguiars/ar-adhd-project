@@ -71,6 +71,10 @@ public class Click : MonoBehaviour
             {
                 toquesBuenos += 1;
                 Debug.Log("Aciertos:" + toquesBuenos);
+                if (toquesBuenos >= 3)
+                {
+                    MostrarResultados();
+                }
             }
             else
             {
@@ -85,5 +89,10 @@ public class Click : MonoBehaviour
     void Mensaje()
     {
         message.GetComponent<Text>().text = " ";
+    }
+
+    void MostrarResultados()
+    {
+        MotorMicrojuego.Resultados();
     }
 }
