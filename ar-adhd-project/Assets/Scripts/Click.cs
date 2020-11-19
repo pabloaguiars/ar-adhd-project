@@ -13,6 +13,7 @@ public class Click : MonoBehaviour
     private int toquesBuenos, toquesMalos,toques;
     private bool evaluacion;
     private Vector3 posicion;
+    private UnityEngine.Color cObjetivo,colorSeleccionado;
 
     // Start is called before the first frame update
     void Start()
@@ -30,12 +31,15 @@ public class Click : MonoBehaviour
         //transform.position = new Vector3(Random.Range(-posicionX, posicionX), Random.Range(-posicionY, posicionY), posicionZ[Random.Range(0, 5)]);
         transform.position = Random.insideUnitSphere * 10;
         nombre = gameObject.name;
+
         
     }
 
     public void OnMouseDown()
     {
-        if (nombre == Objetivo.GetComponent<Text>().text)
+        colorSeleccionado = gameObject.GetComponent<Renderer>().material.color;
+        cObjetivo = Objetivo.GetComponent<Text>().color;
+        if (nombre == Objetivo.GetComponent<Text>().text && colorSeleccionado == cObjetivo)
         {
             message.GetComponent<Text>().text = "Bien hecho!";
             Invoke("Mensaje", .3f);

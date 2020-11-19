@@ -26,6 +26,8 @@ public class cantidadObjetos : MonoBehaviour
         //posicionZ[4] = -6;
         //posicionZ[5] = -7;
 
+
+
         MaxObjetos = 20;
         cantidadChocolates = Random.Range(3, MaxObjetos);
         cantidadPaletas = Random.Range(3, MaxObjetos);

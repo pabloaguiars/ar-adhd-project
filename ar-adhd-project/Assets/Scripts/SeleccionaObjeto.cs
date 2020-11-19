@@ -16,7 +16,7 @@ public class SeleccionaObjeto : MonoBehaviour
         figuras[1] = "Chocolate";
         figuras[2] = "Paleta";
         numero = Random.Range(0, 3);
-        Objetivo.GetComponent<Text>().text = figuras[numero];
+        Objetivo.GetComponent<Text>().text = figuras[2];
     }
 
     // Update is called once per frame
