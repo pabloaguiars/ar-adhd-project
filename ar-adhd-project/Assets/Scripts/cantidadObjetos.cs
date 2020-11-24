@@ -10,48 +10,13 @@ public class cantidadObjetos : MonoBehaviour
     private float posicionX, posicionY;
     private float[] posicionZ = new float[6];
     private int cantidadChocolates, cantidadPaletas, cantidadCandys, MaxObjetos;
+    public static int dificultad = 1;
     private string nombre;
   
     // Start is called before the first frame update
     void Start()
     {
-
-        //posicionX = Random.Range(0f, 6f);
-        //posicionY = Random.Range(0f, 3f);
-        //posicion = new Vector3(Random.Range(-posicionX, posicionX), Random.Range(-posicionY, posicionY), posicionZ[Random.Range(0, 5)]);
-        //posicionZ[0] = 5;
-        //posicionZ[1] = 6;
-        //posicionZ[2] = 7;
-        //posicionZ[3] = -5;
-        //posicionZ[4] = -6;
-        //posicionZ[5] = -7;
-
-
-
-        MaxObjetos = 20;
-        cantidadChocolates = Random.Range(3, MaxObjetos);
-        cantidadPaletas = Random.Range(3, MaxObjetos);
-        cantidadCandys = Random.Range(3, MaxObjetos);
-
-        posicion = Random.insideUnitSphere;
-        nombre = gameObject.name;
-
-
-        for (int conta = 1; conta < cantidadChocolates; conta++)
-        {
-            GameObject Chocolate = Instantiate(chocolate, posicion, Quaternion.identity);
-            Chocolate.name = "Chocolate";
-        }
-        for (int conta2 = 1; conta2 < cantidadPaletas; conta2++)
-        {
-            GameObject Paleta = Instantiate(paleta, posicion, Quaternion.Euler(-89,-43,43));
-            Paleta.name = "Paleta";
-        }
-        for (int conta3 = 1; conta3 < cantidadCandys; conta3++)
-        {
-            GameObject Candy = Instantiate(candy, posicion, Quaternion.identity);
-            Candy.name = "Candy";
-        }
+        IniciarJuego(dificultad);
     }
 
     // Update is called once per frame
@@ -60,4 +25,82 @@ public class cantidadObjetos : MonoBehaviour
         
     }
 
+    void IniciarJuego(int dificultad)
+    {
+        //Condicion para saber la dificultad de los juegos
+        if (dificultad == 1)
+        {
+            //Cantidad máxima de objetos
+            MaxObjetos = 5;
+            //Posicionamiento de los objeto
+            posicion = Random.insideUnitSphere;
+            //Obtención del nombre del objeto
+            nombre = gameObject.name;
+            //Aleatorio de cantidad maxima de objetos
+            cantidadPaletas = Random.Range(3, MaxObjetos);
+            //Destruir objetos
+            Destroy(chocolate);
+            Destroy(candy);
+            //Instanzación de objetos
+            for (int conta2 = 1; conta2 < cantidadPaletas; conta2++)
+            {
+                GameObject Paleta = Instantiate(paleta, posicion, Quaternion.Euler(-89, -43, 43));
+                Paleta.name = "Paleta";
+            }
+        }
+        else if (dificultad == 2)
+        {
+            //Cantidad máxima de objetos
+            MaxObjetos = 10;
+            //Posicionamiento de los objeto
+            posicion = Random.insideUnitSphere;
+            //Obtención del nombre del objeto
+            nombre = gameObject.name;
+            //Aleatorio de cantidad maxima de objetos
+            cantidadPaletas = Random.Range(3, MaxObjetos);
+            //Destruir objetos
+            Destroy(chocolate);
+            Destroy(candy);
+            //Instanzación de objetos
+            for (int conta2 = 1; conta2 < cantidadPaletas; conta2++)
+            {
+                GameObject Paleta = Instantiate(paleta, posicion, Quaternion.Euler(-89, -43, 43));
+                Paleta.name = "Paleta";
+            }
+        }
+        else if (dificultad == 3)
+        {
+            //Cantidad máxima de objetos
+            MaxObjetos = 15;
+            //Aleatorio de cantidad maxima de objetos
+            cantidadChocolates = Random.Range(3, MaxObjetos);
+            cantidadPaletas = Random.Range(3, MaxObjetos);
+            cantidadCandys = Random.Range(3, MaxObjetos);
+            //Posicionamiento de los objeto
+            posicion = Random.insideUnitSphere;
+            //Aleatorio de cantidad maxima de objetos
+            nombre = gameObject.name;
+            //Instanciación de objetos
+            for (int conta = 1; conta < cantidadChocolates; conta++)
+            {
+                GameObject Chocolate = Instantiate(chocolate, posicion, Quaternion.identity);
+                Chocolate.name = "Chocolate";
+            }
+            for (int conta2 = 1; conta2 < cantidadPaletas; conta2++)
+            {
+                GameObject Paleta = Instantiate(paleta, posicion, Quaternion.Euler(-89, -43, 43));
+                Paleta.name = "Paleta";
+            }
+            for (int conta3 = 1; conta3 < cantidadCandys; conta3++)
+            {
+                GameObject Candy = Instantiate(candy, posicion, Quaternion.identity);
+                Candy.name = "Candy";
+            }
+        }
+        else
+        {
+            //Mensaje de error
+            Debug.Log("hay algun error");
+        } 
+    }
 }

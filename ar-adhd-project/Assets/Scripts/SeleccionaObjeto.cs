@@ -12,10 +12,11 @@ public class SeleccionaObjeto : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //Asignación de valores al arreglo de figuras
         figuras[0] = "Candy";
         figuras[1] = "Chocolate";
         figuras[2] = "Paleta";
-        numero = Random.Range(0, 3);
+        //numero = Random.Range(0, 3);
         Objetivo.GetComponent<Text>().text = figuras[2];
     }
 

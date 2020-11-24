@@ -18,27 +18,17 @@ public class Click : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //Posicion de los objetos originales
-        //posicionX = Random.Range(3f, 6f);
-        //posicionY = Random.Range(0f, 2f);
-        //posicionZ[0] = 5;
-        //posicionZ[1] = 6;
-        //posicionZ[2] = 7;
-        //posicionZ[3] = -5;
-        //posicionZ[4] = -6;
-        //posicionZ[5] = -7;
-
-        //transform.position = new Vector3(Random.Range(-posicionX, posicionX), Random.Range(-posicionY, posicionY), posicionZ[Random.Range(0, 5)]);
+        //Posicionamiento de objetos
         transform.position = Random.insideUnitSphere * 10;
         nombre = gameObject.name;
-
-        
     }
 
     public void OnMouseDown()
     {
+        //Obtiene color del objeto seleccionado y objetivo
         colorSeleccionado = gameObject.GetComponent<Renderer>().material.color;
         cObjetivo = Objetivo.GetComponent<Text>().color;
+        //Evaluacion de nombre del objeto y color
         if (nombre == Objetivo.GetComponent<Text>().text && colorSeleccionado == cObjetivo)
         {
             message.GetComponent<Text>().text = "Bien hecho!";
@@ -64,7 +54,7 @@ public class Click : MonoBehaviour
         {
             evaluacion = false;
         }
-
+        //Contador de aciertos y errores
         if(Input.GetMouseButtonDown(0))
         {
             if (evaluacion)
