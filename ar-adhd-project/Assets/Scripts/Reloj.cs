@@ -72,7 +72,13 @@ public class Reloj : MonoBehaviour
             estadoPausa = true;
             finTiempoNivel = escalaTiempo;
             escalaTiempo = 0;
+            Invoke("MostrarResultados", .3f);
         }
+    }
+
+    void MostrarResultados()
+    {
+        MotorMicrojuego.Resultados();
     }
 
     //public void Pausar()

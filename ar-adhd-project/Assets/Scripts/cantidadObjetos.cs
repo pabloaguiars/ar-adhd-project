@@ -7,15 +7,15 @@ public class cantidadObjetos : MonoBehaviour
 {
     public GameObject chocolate, paleta, candy;
     private Vector3 posicion;
-    private float posicionX, posicionY;
-    private float[] posicionZ = new float[6];
-    private int cantidadChocolates, cantidadPaletas, cantidadCandys, MaxObjetos;
-    public static int dificultad = 1;
+    private int cantidadChocolates, cantidadPaletas, cantidadCandys;
+    public static int MaxObjetos;
+    public static int dificultad;
     private string nombre;
   
     // Start is called before the first frame update
     void Start()
     {
+        dificultad = Random.Range(1, 4);
         IniciarJuego(dificultad);
     }
 

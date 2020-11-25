@@ -8,7 +8,6 @@ public class Color : MonoBehaviour
     
     public GameObject IndicadorColor;
     public UnityEngine.Color coloresObjetivo;
-    private Renderer coloresPaletas;
     private UnityEngine.Color[] colores = new UnityEngine.Color[3];
     private int dificultad;
 

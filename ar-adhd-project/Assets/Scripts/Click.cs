@@ -8,12 +8,11 @@ public class Click : MonoBehaviour
 {
     public GameObject Objetivo, message;
     private string nombre, mensaje;
-    private float posicionX, posicionY;
-    private float[] posicionZ = new float[6];
     private int toquesBuenos, toquesMalos,toques;
     private bool evaluacion;
     private Vector3 posicion;
     private UnityEngine.Color cObjetivo,colorSeleccionado;
+    private int MaxObjetos;
 
     // Start is called before the first frame update
     void Start()
@@ -21,6 +20,7 @@ public class Click : MonoBehaviour
         //Posicionamiento de objetos
         transform.position = Random.insideUnitSphere * 10;
         nombre = gameObject.name;
+        MaxObjetos = cantidadObjetos.MaxObjetos;
     }
 
     public void OnMouseDown()
@@ -34,13 +34,18 @@ public class Click : MonoBehaviour
             message.GetComponent<Text>().text = "Bien hecho!";
             Invoke("Mensaje", .3f);
             Destroy(gameObject,.35f);
+            //Evalua si la cantidad de aciertos es igual a la cantidad de Objetos objetivos
+            if (toquesBuenos == MaxObjetos)
+            {
+                Debug.Log( "Juego terminado");
+                Invoke("MostrarResultados",.3f);
+            }
         }
         else
         {
             message.GetComponent<Text>().text = "Uff cerca!";
             Invoke("Mensaje", .3f);
         }
-        
     }
     // Update is called once per frame
     void Update()
