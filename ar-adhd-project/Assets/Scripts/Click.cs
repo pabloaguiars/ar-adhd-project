@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class Click : MonoBehaviour
 {
+    public AudioSource correcto, incorrecto;
     public GameObject Objetivo, message;
     private string nombre, mensaje;
     private int toquesBuenos, toquesMalos,toques;
@@ -35,6 +36,7 @@ public class Click : MonoBehaviour
         {
             if (nombre == Objetivo.GetComponent<Text>().text)
             {
+                correcto.Play();
                 Debug.Log(nombre);
                 message.GetComponent<Text>().text = "Bien hecho!";
                 Invoke("Mensaje", .3f);
@@ -48,6 +50,7 @@ public class Click : MonoBehaviour
             }
             else
             {
+                incorrecto.Play();
                 message.GetComponent<Text>().text = "Uff cerca!";
                 Invoke("Mensaje", .3f);
             }
@@ -56,6 +59,7 @@ public class Click : MonoBehaviour
         {
             if (nombre == Objetivo.GetComponent<Text>().text)
             {
+                correcto.Play();
                 message.GetComponent<Text>().text = "Bien hecho!";
                 Invoke("Mensaje", .3f);
                 Destroy(gameObject, .35f);
@@ -68,6 +72,7 @@ public class Click : MonoBehaviour
             }
             else
             {
+                incorrecto.Play();
                 message.GetComponent<Text>().text = "Uff cerca!";
                 Invoke("Mensaje", .3f);
             }
@@ -77,6 +82,7 @@ public class Click : MonoBehaviour
 
             if (nombre == Objetivo.GetComponent<Text>().text && colorSeleccionado == cObjetivo)
             {
+                correcto.Play();
                 message.GetComponent<Text>().text = "Bien hecho!";
                 Invoke("Mensaje", .3f);
                 Destroy(gameObject, .35f);
@@ -89,6 +95,7 @@ public class Click : MonoBehaviour
             }
             else
             {
+                incorrecto.Play();
                 message.GetComponent<Text>().text = "Uff cerca!";
                 Invoke("Mensaje", .3f);
             }
