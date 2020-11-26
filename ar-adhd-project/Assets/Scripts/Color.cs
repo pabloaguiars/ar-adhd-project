@@ -17,17 +17,17 @@ public class Color : MonoBehaviour
         //Obtiene dificultad
         dificultad = cantidadObjetos.dificultad;
         //Asignación de colores al arreglo
-        colores[0] = new UnityEngine.Color(1f,0f,0f);
-        colores[1] = new UnityEngine.Color(0f, 1f, 0f);
-        colores[2] = new UnityEngine.Color(0f,0f,1f);
+        colores[0] = new UnityEngine.Color(1f,1f,1f);
+        colores[1] = new UnityEngine.Color(1, 0.6470588235294118F, 0.6549019607843137F);
+        colores[2] = new UnityEngine.Color(0.0549019607843137F, 0.7058823529411765F, 0.8901960784313725F);
         //Pintamos el objeto de acuerdo al nivel
-        if (dificultad==1)
+        if (dificultad<=2)
         {
-            coloresObjetivo = colores[0];
+            coloresObjetivo = colores[Random.Range(0, 3)];
             GetComponent<Renderer>().material.color = coloresObjetivo;
-            IndicadorColor.GetComponent<Text>().color = coloresObjetivo;
+            IndicadorColor.GetComponent<Text>().color = new UnityEngine.Color(1f, 0f, 0f);
         }
-        else if(dificultad>=2)
+        else if(dificultad==3)
         {
             coloresObjetivo = colores[Random.Range(0, 3)];
             GetComponent<Renderer>().material.color = coloresObjetivo;

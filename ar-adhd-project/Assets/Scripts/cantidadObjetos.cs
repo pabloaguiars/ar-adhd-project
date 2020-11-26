@@ -5,17 +5,21 @@ using UnityEngine.UI;
 
 public class cantidadObjetos : MonoBehaviour
 {
-    public GameObject chocolate, paleta, candy;
+    public GameObject chocolate, paleta, popsicle, objetivo;
     private Vector3 posicion;
-    private int cantidadChocolates, cantidadPaletas, cantidadCandys;
+    private int cantidadChocolates, cantidadPaletas, cantidadCono;
     public static int MaxObjetos;
     public static int dificultad;
     private string nombre;
-  
+    public int numero;
+    string[] figuras = new string[4];
+
     // Start is called before the first frame update
     void Start()
     {
-        dificultad = Random.Range(1, 4);
+        //dificultad = Random.Range(1, 4);
+        dificultad = 3;
+        SeleccionaObjetos();
         IniciarJuego(dificultad);
     }
 
@@ -34,48 +38,82 @@ public class cantidadObjetos : MonoBehaviour
             MaxObjetos = 5;
             //Posicionamiento de los objeto
             posicion = Random.insideUnitSphere;
-            //Obtención del nombre del objeto
-            nombre = gameObject.name;
             //Aleatorio de cantidad maxima de objetos
             cantidadPaletas = Random.Range(3, MaxObjetos);
-            //Destruir objetos
-            Destroy(chocolate);
-            Destroy(candy);
+
             //Instanzación de objetos
-            for (int conta2 = 1; conta2 < cantidadPaletas; conta2++)
+            if (objetivo.GetComponent<Text>().text =="Paleta")
             {
-                GameObject Paleta = Instantiate(paleta, posicion, Quaternion.Euler(-89, -43, 43));
-                Paleta.name = "Paleta";
+                //Destruir objetos
+                Destroy(chocolate);
+                Destroy(popsicle);
+                for (int conta2 = 1; conta2 < cantidadPaletas; conta2++)
+                {
+                    GameObject Paleta = Instantiate(paleta, posicion, Quaternion.Euler(-89, -43, 43));
+                    Paleta.name = "Paleta";
+                }
             }
+            else if (objetivo.GetComponent<Text>().text == "Popsicle")
+            {
+                //Destruir objetos
+                Destroy(chocolate);
+                Destroy(paleta);
+                for (int conta2 = 1; conta2 < cantidadPaletas; conta2++)
+                {
+                    GameObject Popsicle = Instantiate(popsicle, posicion, Quaternion.Euler(-90,0,0));
+                    Popsicle.name = "Popsicle";
+                }
+            }
+            else if (objetivo.GetComponent<Text>().text == "Chocolate")
+            {
+                //Destruir objetos
+                Destroy(paleta);
+                Destroy(popsicle);
+                for (int conta2 = 1; conta2 < cantidadPaletas; conta2++)
+                {
+                    GameObject Chocolate = Instantiate(chocolate, posicion, Quaternion.identity);
+                    Chocolate.name = "Chocolate";
+                }
+            }
+            
         }
         else if (dificultad == 2)
         {
             //Cantidad máxima de objetos
-            MaxObjetos = 10;
+            MaxObjetos = 6;
             //Posicionamiento de los objeto
             posicion = Random.insideUnitSphere;
             //Obtención del nombre del objeto
             nombre = gameObject.name;
             //Aleatorio de cantidad maxima de objetos
+            cantidadChocolates = Random.Range(3, MaxObjetos);
             cantidadPaletas = Random.Range(3, MaxObjetos);
-            //Destruir objetos
-            Destroy(chocolate);
-            Destroy(candy);
+            cantidadCono = Random.Range(3, MaxObjetos);
             //Instanzación de objetos
+            for (int conta = 1; conta < cantidadChocolates; conta++)
+            {
+                GameObject Chocolate = Instantiate(chocolate, posicion, Quaternion.identity);
+                Chocolate.name = "Chocolate";
+            }
             for (int conta2 = 1; conta2 < cantidadPaletas; conta2++)
             {
                 GameObject Paleta = Instantiate(paleta, posicion, Quaternion.Euler(-89, -43, 43));
                 Paleta.name = "Paleta";
             }
+            for (int conta3 = 1; conta3 < cantidadCono; conta3++)
+            {
+                GameObject Popsicle = Instantiate(popsicle, posicion, Quaternion.Euler(-90, 0, 0));
+                Popsicle.name = "Popsicle";
+            }
         }
         else if (dificultad == 3)
         {
             //Cantidad máxima de objetos
-            MaxObjetos = 15;
+            MaxObjetos = 7;
             //Aleatorio de cantidad maxima de objetos
             cantidadChocolates = Random.Range(3, MaxObjetos);
             cantidadPaletas = Random.Range(3, MaxObjetos);
-            cantidadCandys = Random.Range(3, MaxObjetos);
+            cantidadCono = Random.Range(3, MaxObjetos);
             //Posicionamiento de los objeto
             posicion = Random.insideUnitSphere;
             //Aleatorio de cantidad maxima de objetos
@@ -91,10 +129,10 @@ public class cantidadObjetos : MonoBehaviour
                 GameObject Paleta = Instantiate(paleta, posicion, Quaternion.Euler(-89, -43, 43));
                 Paleta.name = "Paleta";
             }
-            for (int conta3 = 1; conta3 < cantidadCandys; conta3++)
+            for (int conta3 = 1; conta3 < cantidadCono; conta3++)
             {
-                GameObject Candy = Instantiate(candy, posicion, Quaternion.identity);
-                Candy.name = "Candy";
+                GameObject Popsicle = Instantiate(popsicle, posicion, Quaternion.Euler(-90, 0, 0));
+                Popsicle.name = "Popsicle";
             }
         }
         else
@@ -102,5 +140,14 @@ public class cantidadObjetos : MonoBehaviour
             //Mensaje de error
             Debug.Log("hay algun error");
         } 
+    }
+
+    void SeleccionaObjetos()
+    {
+        figuras[0] = "Popsicle";
+        figuras[1] = "Chocolate";
+        figuras[2] = "Paleta";
+        //numero = Random.Range(0, 3);
+        objetivo.GetComponent<Text>().text = figuras[Random.Range(0, 3)];
     }
 }

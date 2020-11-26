@@ -13,10 +13,12 @@ public class Click : MonoBehaviour
     private Vector3 posicion;
     private UnityEngine.Color cObjetivo,colorSeleccionado;
     private int MaxObjetos;
+    private int dificultad;
 
     // Start is called before the first frame update
     void Start()
     {
+        dificultad = cantidadObjetos.dificultad;
         //Posicionamiento de objetos
         transform.position = Random.insideUnitSphere * 10;
         nombre = gameObject.name;
@@ -29,22 +31,67 @@ public class Click : MonoBehaviour
         colorSeleccionado = gameObject.GetComponent<Renderer>().material.color;
         cObjetivo = Objetivo.GetComponent<Text>().color;
         //Evaluacion de nombre del objeto y color
-        if (nombre == Objetivo.GetComponent<Text>().text && colorSeleccionado == cObjetivo)
+        if(dificultad==1)
         {
-            message.GetComponent<Text>().text = "Bien hecho!";
-            Invoke("Mensaje", .3f);
-            Destroy(gameObject,.35f);
-            //Evalua si la cantidad de aciertos es igual a la cantidad de Objetos objetivos
-            if (toquesBuenos == MaxObjetos)
+            if (nombre == Objetivo.GetComponent<Text>().text)
             {
-                Debug.Log( "Juego terminado");
-                Invoke("MostrarResultados",.3f);
+                Debug.Log(nombre);
+                message.GetComponent<Text>().text = "Bien hecho!";
+                Invoke("Mensaje", .3f);
+                Destroy(gameObject, .35f);
+                //Evalua si la cantidad de aciertos es igual a la cantidad de Objetos objetivos
+                if (toquesBuenos == MaxObjetos)
+                {
+                    Debug.Log("Juego terminado");
+                    Invoke("MostrarResultados", .3f);
+                }
+            }
+            else
+            {
+                message.GetComponent<Text>().text = "Uff cerca!";
+                Invoke("Mensaje", .3f);
             }
         }
-        else
+        else if (dificultad==2)
         {
-            message.GetComponent<Text>().text = "Uff cerca!";
-            Invoke("Mensaje", .3f);
+            if (nombre == Objetivo.GetComponent<Text>().text)
+            {
+                message.GetComponent<Text>().text = "Bien hecho!";
+                Invoke("Mensaje", .3f);
+                Destroy(gameObject, .35f);
+                //Evalua si la cantidad de aciertos es igual a la cantidad de Objetos objetivos
+                if (toquesBuenos == MaxObjetos)
+                {
+                    Debug.Log("Juego terminado");
+                    Invoke("MostrarResultados", .3f);
+                }
+            }
+            else
+            {
+                message.GetComponent<Text>().text = "Uff cerca!";
+                Invoke("Mensaje", .3f);
+            }
+        }
+        else if (dificultad==3)
+        {
+
+            if (nombre == Objetivo.GetComponent<Text>().text && colorSeleccionado == cObjetivo)
+            {
+                message.GetComponent<Text>().text = "Bien hecho!";
+                Invoke("Mensaje", .3f);
+                Destroy(gameObject, .35f);
+                //Evalua si la cantidad de aciertos es igual a la cantidad de Objetos objetivos
+                if (toquesBuenos == MaxObjetos)
+                {
+                    Debug.Log("Juego terminado");
+                    Invoke("MostrarResultados", .3f);
+                }
+            }
+            else
+            {
+                message.GetComponent<Text>().text = "Uff cerca!";
+                Invoke("Mensaje", .3f);
+            }
         }
     }
     // Update is called once per frame
