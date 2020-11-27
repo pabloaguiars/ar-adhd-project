@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 8878960070792930082}
   - component: {fileID: 1036280269404373244}
   - component: {fileID: 881912763547537175}
-  - component: {fileID: 2686297383873305850}
   m_Layer: 0
   m_Name: Popsicle
   m_TagString: Untagged
@@ -94,6 +93,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65853d18bfbef0549bf59fe6eae21beb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  correcto: {fileID: 0}
+  incorrecto: {fileID: 0}
   Objetivo: {fileID: 0}
   message: {fileID: 0}
 --- !u!114 &1036280269404373244
@@ -121,18 +122,5 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.11729313, y: 0.10652797, z: 0.028}
-  m_Center: {x: 0, y: 0, z: 0.0125}
---- !u!65 &2686297383873305850
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 110073581073793510}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.02, y: 0.02, z: 0.0085}
-  m_Center: {x: 0, y: 0, z: -0.0057}
+  m_Size: {x: 0.11729313, y: 0.10652797, z: 0.037}
+  m_Center: {x: 0, y: 0, z: 0.0085}
