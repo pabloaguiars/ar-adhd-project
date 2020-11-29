@@ -15,7 +15,7 @@ public class Color : MonoBehaviour
     void Start()
     {
         //Obtiene dificultad
-        dificultad = cantidadObjetos.dificultad;
+        dificultad = 3;
         //Asignación de colores al arreglo
         colores[0] = new UnityEngine.Color(1f,1f,1f);
         colores[1] = new UnityEngine.Color(1, 0.6470588235294118F, 0.6549019607843137F);
