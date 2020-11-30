@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.ExceptionServices;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -16,6 +17,34 @@ public enum ColorObjeto
     Rosa,
     Blanco
 }
+
+
+public class IteradorDeColores
+{
+    int[,] matriz;
+
+    public IteradorDeColores(int[,] Matriz)
+    {
+        matriz = (int[,]) Matriz.Clone();
+    }
+
+    public ColorObjeto Siguiente(Objeto objeto)
+    {
+        int i = (int)objeto;
+
+        for (int j = 0; j < matriz.GetLength(1); j++)
+        {
+            if (matriz[i, j] > 0)
+            {
+                matriz[i, j]--;
+                return (ColorObjeto)j;
+            }
+        }
+
+        return ColorObjeto.Blanco;
+    }
+}
+
 
 public class FabricaDeObjetos : MonoBehaviour
 {
@@ -77,23 +106,51 @@ public class DecodificadorDeColor
 public class MotorInferencia
 {
     // ESPACIO DE MEMORIA
-    private static int dificultad = 1;
+    public static int nivel = 0;
+    public static int dificultad = 2;
     private static Objeto objetivo = Objeto.Paleta;
     private static ColorObjeto colorObjeto = ColorObjeto.Blanco;
     private static int[] cantidadObjetos = new int[] { 0, 0, 0 };
+    private static int[,] objetos = new int[3, 3];
+    public static IteradorDeColores IteradorDeColores;
 
     private static readonly int[] CANTIDAD_OBJETOS = new int[] { 5, 6, 7 };
     private static readonly bool[] TIENE_COLORES = new bool[] { false, false, true };
     private static readonly bool[] TIENE_OBSTACULOS = new bool[] { false, true, true };
+    private static readonly bool[] SE_MUEVEN = new bool[] { false, true, true };
 
     public static void DeterminarObjetivo()
     {
+        nivel = Random.Range(0, 3);
+        dificultad = Random.Range(0, 3);
+
         objetivo = (Objeto)Random.Range(0, 3);
         colorObjeto = (ColorObjeto)Random.Range(0, 3);
 
         for (int i = 0; i < cantidadObjetos.Length; i++) { 
             cantidadObjetos[i] = Random.Range(3, CANTIDAD_OBJETOS[dificultad]);
         }
+
+        for (int i = 0; i < objetos.GetLength(0); i++)
+        {
+            int max = cantidadObjetos[i];
+            int generados = 0;
+            for (int j = 0; j < objetos.GetLength(1); j++)
+            {
+                if (i == (int) objetivo && j == (int) colorObjeto)
+                {
+                    objetos[i, j] = Random.Range(1, /*max - generados*/1);
+                }
+                else
+                {
+                    objetos[i, j] = Random.Range(0, max - 1 - generados);
+                }
+                generados += objetos[i, j];
+            }
+            objetos[i, 0] += max - generados;
+        }
+
+        IteradorDeColores = new IteradorDeColores(objetos);
     }
 
     public static Objeto Objetivo()
@@ -111,6 +168,18 @@ public class MotorInferencia
         return cantidadObjetos;
     }
 
+    public static int CantidadObjetivos()
+    {
+        if (TieneColores()) 
+        { 
+            return objetos[(int)objetivo, (int)colorObjeto];
+        }
+        else
+        {
+            return cantidadObjetos[(int)objetivo];
+        }
+    }
+
     public static bool TieneColores()
     {
         return TIENE_COLORES[dificultad];
@@ -119,5 +188,10 @@ public class MotorInferencia
     public static bool TieneObstaculos()
     {
         return TIENE_OBSTACULOS[dificultad];
+    }
+
+    public static bool SeMueven()
+    {
+        return SE_MUEVEN[nivel];
     }
 }

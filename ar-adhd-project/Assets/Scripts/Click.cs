@@ -1,6 +1,7 @@
 ﻿//using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Net;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -8,13 +9,15 @@ using UnityEngine.UI;
 public class Click : MonoBehaviour
 {
     public AudioSource correcto, incorrecto;
-    public GameObject Objetivo, message;
+    public GameObject message;
     private string mensaje;
-    private int toquesBuenos, toquesMalos,toques;
+    private static int toquesBuenos, toquesMalos,toques;
     private bool evaluacion;
-    private UnityEngine.Color cObjetivo,colorSeleccionado;
+    private UnityEngine.Color colorObjetivo,colorSeleccionado;
     private int CantidadObjetos;
-    private bool TieneColores;
+    private bool TieneColores, SeMueven;
+    private static bool clic = false, clicAnterior = false;
+
     Objeto objeto, objetivo;
 
     private double traslado_x = 0.0f;
@@ -23,25 +26,35 @@ public class Click : MonoBehaviour
 
     // Start is called before the first frame update
     void Start()
-    {   
+    {
+        toquesBuenos = 0;
+        toquesMalos = 0;
+        toques = 0;
+
+        clic = false;
+        clicAnterior = false;
+
         //Posicionamiento de objetos
-        transform.position = Random.insideUnitSphere * 10;
+        transform.position = Random.insideUnitSphere * 5;
         System.Enum.TryParse<Objeto>(gameObject.name, out objeto);
 
         objetivo = MotorInferencia.Objetivo();
-        CantidadObjetos = MotorInferencia.CantidadObjetos()[(int) objetivo];
+        colorObjetivo = DecodificadorDeColor.decodificar(MotorInferencia.Color());
+        CantidadObjetos = MotorInferencia.CantidadObjetivos();
         TieneColores = MotorInferencia.TieneColores();
+        SeMueven = MotorInferencia.SeMueven();
     }
 
     private void Correcto()
     {
+        toquesBuenos += 1;
         correcto.Play();
         Debug.Log(objeto);
         message.GetComponent<Text>().text = "Bien hecho!";
         Invoke("Mensaje", .3f);
         Destroy(gameObject, .35f);
         //Evalua si la cantidad de aciertos es igual a la cantidad de Objetos objetivos
-        if (toquesBuenos == CantidadObjetos)
+        if (toquesBuenos >= CantidadObjetos)
         {
             Debug.Log("Juego terminado");
             Invoke("MostrarResultados", .3f);
@@ -50,21 +63,26 @@ public class Click : MonoBehaviour
 
     private void Incorrecto()
     {
+        toquesMalos += 1;
         incorrecto.Play();
         message.GetComponent<Text>().text = "Uff cerca!";
         Invoke("Mensaje", .3f);
+
+        if (toquesMalos >= 3)
+        {
+            MostrarResultados();
+        }
     }
 
     public void OnMouseDown()
     {
         //Obtiene color del objeto seleccionado y objetivo
         colorSeleccionado = gameObject.GetComponent<Renderer>().material.color;
-        cObjetivo = Objetivo.GetComponent<Text>().color;
 
         //Evaluacion de nombre del objeto y color
         if (TieneColores)
         {
-            if (objeto == objetivo && colorSeleccionado == cObjetivo)
+            if (objeto == objetivo && colorSeleccionado == colorObjetivo)
             {
                 Correcto();
             }
@@ -84,43 +102,28 @@ public class Click : MonoBehaviour
                 Incorrecto();
             }
         }
+
+        Debug.Log("Clics:" + toques);
+        Debug.Log("Aciertos:" + toquesBuenos);
+        Debug.Log("Errores:" + toquesMalos);
     }
+
 
     // Update is called once per frame
     void Update()
     {
-        traslado_x += 0.01;
 
-        gameObject.transform.Translate( (float) System.Math.Cos(traslado_x) / 20.0f, 0, 0);
+        if (SeMueven) 
+        { 
+            traslado_x += 0.01;
 
-
-
-        //Definimos cuando sera un error y un acierto
-        if (message.GetComponent<Text>().text == "Bien hecho!")
-        {
-            evaluacion = true;
+            gameObject.transform.Translate( (float) System.Math.Cos(traslado_x) / 30.0f, 0, 0);
         }
-        else
+
+        clicAnterior = clic;
+        clic = Input.GetMouseButtonDown(0);
+        if (!clicAnterior && clic)
         {
-            evaluacion = false;
-        }
-        //Contador de aciertos y errores
-        if(Input.GetMouseButtonDown(0))
-        {
-            if (evaluacion)
-            {
-                toquesBuenos += 1;
-                Debug.Log("Aciertos:" + toquesBuenos);
-            }
-            else
-            {
-                toquesMalos += 1;
-                Debug.Log("Errores:" + toquesMalos);
-                if (toquesMalos >= 3)
-                {
-                    MostrarResultados();
-                }
-            }
             toques += 1;
             Debug.Log("Clics:" + toques);
         }

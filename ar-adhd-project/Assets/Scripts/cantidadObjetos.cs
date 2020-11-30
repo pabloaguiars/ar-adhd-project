@@ -1,23 +1,29 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class cantidadObjetos : MonoBehaviour
 {
-    public GameObject chocolate, paleta, popsicle, objetivo;
+    public GameObject objetivoPaleta, objetivoChocolate, objetivoPaletaDeHielo;
+    public GameObject chocolate, paleta, paletaDeHielo;
+    public GameObject nivelLabel;
 
     FabricaDeObjetos fabrica;
     Objeto objetoObjetivo;
-    bool tieneObstaculos;
+    ColorObjeto colorObjetivo;
+    bool tieneObstaculos, tieneColores;
+    int nivel, dificultad;
 
     // Start is called before the first frame update
     void Start()
     {
-        SeleccionaObjetos();
 
-        fabrica = new FabricaDeObjetos(paleta, popsicle, chocolate);
-        objetoObjetivo = MotorInferencia.Objetivo();
+        fabrica = new FabricaDeObjetos(paleta, paletaDeHielo, chocolate);
+
+        SeleccionaObjetos();
+       
         tieneObstaculos = MotorInferencia.TieneObstaculos();
 
         IniciarJuego();
@@ -44,7 +50,7 @@ public class cantidadObjetos : MonoBehaviour
             {
                 case Objeto.Paleta:
                     Destroy(chocolate);
-                    Destroy(popsicle);
+                    Destroy(paletaDeHielo);
                     Instanciar(Objeto.Paleta);
                     break;
 
@@ -56,7 +62,7 @@ public class cantidadObjetos : MonoBehaviour
 
                 default:
                     Destroy(paleta);
-                    Destroy(popsicle);
+                    Destroy(paletaDeHielo);
                     Instanciar(Objeto.Chocolate);
                     break;
             }
@@ -76,6 +82,45 @@ public class cantidadObjetos : MonoBehaviour
     void SeleccionaObjetos()
     {
         MotorInferencia.DeterminarObjetivo();
-        objetivo.GetComponent<Text>().text = MotorInferencia.Objetivo().ToString();
+
+        objetoObjetivo = MotorInferencia.Objetivo();
+        colorObjetivo = MotorInferencia.Color();
+        tieneColores = MotorInferencia.TieneColores();
+        nivel = MotorInferencia.nivel;
+        dificultad = MotorInferencia.dificultad;
+
+        nivelLabel.GetComponent<Text>().text = string.Format("N: {0}, D: {1}", nivel + 1, dificultad + 1);
+
+        switch (objetoObjetivo)
+        {
+            case Objeto.Paleta:
+                if (tieneColores) 
+                { 
+                    objetivoPaleta.GetComponent<Renderer>().material.color = DecodificadorDeColor.decodificar(colorObjetivo);
+                }
+                Destroy(objetivoPaletaDeHielo);
+                Destroy(objetivoChocolate);
+                break;
+
+            case Objeto.PaletaDeHielo:
+
+                if (tieneColores)
+                {
+                    objetivoPaletaDeHielo.GetComponent<Renderer>().material.color = DecodificadorDeColor.decodificar(colorObjetivo);
+                }
+                Destroy(objetivoPaleta);
+                Destroy(objetivoChocolate);
+                break;
+
+            default:
+                if (tieneColores)
+                { 
+                    objetivoChocolate.GetComponent<Renderer>().material.color = DecodificadorDeColor.decodificar(colorObjetivo);
+                }
+                Destroy(objetivoPaleta);
+                Destroy(objetivoPaletaDeHielo);
+                break;
+        }
+
     }
 }
