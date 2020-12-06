@@ -13,6 +13,7 @@ public class Color : MonoBehaviour
         //ColorObjeto colorObjeto = (ColorObjeto) Random.Range(0, 3);
 
         Objeto objeto;
+        //Debug.Log(gameObject.name);
         System.Enum.TryParse<Objeto>(gameObject.name, out objeto);
 
         ColorObjeto colorObjeto = MotorInferencia.IteradorDeColores.Siguiente(objeto);
