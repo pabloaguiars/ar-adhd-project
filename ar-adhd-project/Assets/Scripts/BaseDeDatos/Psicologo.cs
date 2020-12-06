@@ -36,6 +36,7 @@ public class PsicologoDAO
                 @Cedula, 
                 @Contrasena
             );
+            SELECT last_insert_rowid();
          ";
 
         using (SqliteConnection connection = new SqliteConnection(CONNECTION_STRING))
@@ -50,11 +51,11 @@ public class PsicologoDAO
                 command.Parameters.AddWithValue("Contrasena", Psicologo.Contrasena);
                 command.Prepare();
 
-                command.ExecuteNonQuery();
+                Psicologo.IdPsicologo = System.Convert.ToInt32(command.ExecuteScalar());
             }
         }
     }
-    public void Guardar(Psicologo Psicologo)
+    public void Actualizar(Psicologo Psicologo)
     {
         string query = @"
             UPDATE Psicologos

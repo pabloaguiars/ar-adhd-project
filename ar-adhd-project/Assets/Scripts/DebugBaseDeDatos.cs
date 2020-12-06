@@ -7,22 +7,40 @@ public class DebugBaseDeDatos : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        PsicologoDAO dao = new PsicologoDAO();
-        List<Psicologo> psicologos;
+        ConfiguracionDAO dao = new ConfiguracionDAO();
+        Configuracion configuracion = new Configuracion
+        {
+            Sfx = 1,
+            Volumen = 2,
+            IdJugador = 5,
+        };
+        dao.Crear(configuracion);
+
+        configuracion = dao.Buscar(configuracion.IdConfiguracion);
+        Debug.Log(configuracion);
+
+        configuracion.Sfx = 300;
+        dao.Actualizar(configuracion);
+
+        configuracion = dao.Buscar(configuracion.IdConfiguracion);
+        Debug.Log(configuracion);
+
+
+        List<Configuracion> configuraciones;
 
         Debug.Log("Antes: ");
-        psicologos= dao.Lista();
-        foreach (Psicologo psicologo in psicologos)
+        configuraciones = dao.Lista();
+        foreach (Configuracion configures2 in configuraciones)
         {
-            Debug.Log(psicologo.ToString());
-            dao.Eliminar(psicologo);
+            Debug.Log(configures2.ToString());
+            dao.Eliminar(configures2);
         }
 
         Debug.Log("Despues: ");
-        psicologos = dao.Lista();
-        foreach (Psicologo psicologo in psicologos)
+        configuraciones = dao.Lista();
+        foreach (Configuracion configures2 in configuraciones)
         {
-            Debug.Log(psicologo.ToString());
+            Debug.Log(configures2.ToString());
         }
     }
 
