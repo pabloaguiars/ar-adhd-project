@@ -11,7 +11,7 @@ public class Click : MonoBehaviour
     public AudioSource correcto, incorrecto;
     public GameObject message;
     private string mensaje;
-    private static int toquesBuenos, toquesMalos,toques;
+    public static int toquesBuenos, toquesMalos,toques;
     private bool evaluacion;
     private UnityEngine.Color colorObjetivo,colorSeleccionado;
     private int CantidadObjetos;
@@ -58,6 +58,7 @@ public class Click : MonoBehaviour
         {
             Debug.Log("Juego terminado");
             Invoke("MostrarResultados", .3f);
+            new BitacoraResultados().Guardar();
         }
     }
 

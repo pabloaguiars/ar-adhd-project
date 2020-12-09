@@ -223,4 +223,37 @@ public class JugadorDAO
             Sesion = columnReader.GetInt("Sesion") == 1
         };
     }
+
+    public Jugador BuscarJugadorActivo()
+    {
+        Jugador jugador = null;
+        string query = @"
+            SELECT IdJugador,
+                   Edad, 
+                   Nombre,
+                   NombreUsuario, 
+                   Sexo, 
+                   Contrasena,
+                   IdTutor,
+                   IdPsicologo,
+                   Sesion
+            FROM Jugadores
+            WHERE Sesion=1;
+         ";
+
+        using (SqliteConnection connection = new SqliteConnection(CONNECTION_STRING))
+        {
+            connection.Open();
+            using (SqliteCommand command = new SqliteCommand(query, connection))
+            {
+                SqliteDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    jugador = LeerJugador(reader);
+                }
+            }
+        }
+
+        return jugador;
+    }
 }

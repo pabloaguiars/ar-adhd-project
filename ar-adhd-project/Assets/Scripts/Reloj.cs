@@ -14,7 +14,7 @@ public class Reloj : MonoBehaviour
 
     private Text Crono;
     private float tiempoDelFrameConTimeScale = 0f;
-    private float tiempoAMostrarEnSegundos = 0f;
+    public static float tiempoAMostrarEnSegundos = 0f;
     private float tiempoPausa, tiempoInicial, finTiempoNivel;
     private bool estadoPausa = false;
 
@@ -67,12 +67,13 @@ public class Reloj : MonoBehaviour
         //Actualiza el elemento de text de UI con cadenas de caracteres
         Crono.text = textoReloj;
 
-        if (Crono.text == "00:40")
+        if (Crono.text == "00:05")
         {
             estadoPausa = true;
             finTiempoNivel = escalaTiempo;
             escalaTiempo = 0;
             Invoke("MostrarResultados", .3f);
+            new BitacoraResultados().Guardar();
         }
     }
 
