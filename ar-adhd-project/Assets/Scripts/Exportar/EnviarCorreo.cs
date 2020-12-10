@@ -28,7 +28,7 @@ public class EnviarCorreo : MonoBehaviour
                 reporte += partida.ToCsv() + "\n";
             }
             string path = "Assets/Resources/Reporte.csv";
-            string pathContrasena = "Assets/Resources/Contrasena.txt";
+            string pathContrasena = Application.dataPath + "/Plugins/Contrasena.txt";
             try
             {
                 File.WriteAllText(path, reporte);
