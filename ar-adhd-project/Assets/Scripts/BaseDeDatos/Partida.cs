@@ -23,6 +23,28 @@ public class Partida
         );
     }
 
+    public string ToCsv()
+    {
+        return string.Format("{0},{1},{2},{3},{4},{5},{6},{7}",
+               Jugador.Nombre, Nivel, Dificultad, Intentos, Aciertos, Errores,
+               Tiempo, FechaTiempo
+        );
+    }
+    public string ToTsv()
+    {
+        return string.Format("{0}\t{1}\t{2}\t{3}\t{4}\t{5}\t{6}\t{7}",
+               Jugador.Nombre, Nivel, Dificultad, Intentos, Aciertos, Errores,
+               Tiempo, FechaTiempo
+        );
+    }
+    public static string ToCsvColumnas()
+    {
+        return "Nombre Jugador,Nivel,Dificultad,Intentos,Aciertos,Errores,Tiempo,Fecha y Hora";
+    }
+    public static string ToTsvColumnas()
+    {
+        return "Nombre Jugador\tNivel\tDificultad\tIntentos\tAciertos\tErrores\tTiempo\tFecha y Hora";
+    }
 }
 
 public class PartidaDAO
@@ -199,6 +221,41 @@ public class PartidaDAO
         return partidas;
     }
 
+    public List<Partida> ListaPartidasJugadorActivo()
+    {
+        List<Partida> partidas = new List<Partida>();
+        string query = @"
+            SELECT 
+                IdPartida,
+                Nivel,
+                Dificultad,
+                Intentos,
+                Aciertos,
+                Errores,
+                Tiempo,
+                FechaTiempo,
+                P.IdJugador
+            FROM Partidas AS P 
+			JOIN Jugadores AS J 
+			on P.IdJugador = J.IdJugador
+			WHERE J.Sesion = 1
+         ";
+
+        using (SqliteConnection connection = new SqliteConnection(CONNECTION_STRING))
+        {
+            connection.Open();
+            using (SqliteCommand command = new SqliteCommand(query, connection))
+            {
+                SqliteDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    partidas.Add(LeerPartida(reader));
+                }
+            }
+        }
+
+        return partidas;
+    }
 
     private Partida LeerPartida(SqliteDataReader reader)
     {

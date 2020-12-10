@@ -67,7 +67,7 @@ public class Reloj : MonoBehaviour
         //Actualiza el elemento de text de UI con cadenas de caracteres
         Crono.text = textoReloj;
 
-        if (Crono.text == "00:05")
+        if (Crono.text == "01:00")
         {
             estadoPausa = true;
             finTiempoNivel = escalaTiempo;

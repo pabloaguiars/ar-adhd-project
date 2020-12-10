@@ -50,7 +50,7 @@ public class Click : MonoBehaviour
         toquesBuenos += 1;
         correcto.Play();
         Debug.Log(objeto);
-        message.GetComponent<Text>().text = "Bien hecho!";
+        message.GetComponent<Text>().text = "¡Bien hecho!";
         Invoke("Mensaje", .3f);
         Destroy(gameObject, .35f);
         //Evalua si la cantidad de aciertos es igual a la cantidad de Objetos objetivos
@@ -66,7 +66,7 @@ public class Click : MonoBehaviour
     {
         toquesMalos += 1;
         incorrecto.Play();
-        message.GetComponent<Text>().text = "Uff cerca!";
+        message.GetComponent<Text>().text = "¡Uf cerca!";
         Invoke("Mensaje", .3f);
 
         if (toquesMalos >= 3)

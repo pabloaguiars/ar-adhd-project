@@ -7,41 +7,48 @@ public class DebugBaseDeDatos : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //    TutorDAO tutorDAO = new TutorDAO();
-        //    PsicologoDAO psicologoDAO = new PsicologoDAO();
-        //    JugadorDAO jugadorDAO = new JugadorDAO();
+        TutorDAO tutorDAO = new TutorDAO();
+        PsicologoDAO psicologoDAO = new PsicologoDAO();
+        JugadorDAO jugadorDAO = new JugadorDAO();
+        if (psicologoDAO.Lista().Count<1)
+        {
+            Psicologo psicologo = new Psicologo()
+            {
+                Nombre = "Psicologo",
+                Correo = "sweetvictory.soporte@gmail.com",
+                Telefono = "0123456789",
+                Cedula = "cedula",
+                Contrasena = "contrasena"
+            };
 
-        //    Psicologo psicologo = new Psicologo()
-        //    {
-        //        Nombre="Rafael",
-        //        Correo="raul.godoy16@tectijuana.edu.mx",
-        //        Telefono="6645890390",
-        //        Cedula="duasdu23121",
-        //        Contrasena="123"
-        //    };
+            psicologoDAO.Crear(psicologo);
+        }
 
-        //    psicologoDAO.Crear(psicologo);
+        if (tutorDAO.Lista().Count<1)
+        {
+            Tutor tutor = new Tutor()
+            {
+                Nombre = "Tutor",
+                Correo = "tutor@correo.com",
+                Telefono = "0123456789"
+            };
+            tutorDAO.Crear(tutor);
+        }
 
-        //    Tutor tutor = new Tutor()
-        //    {
-        //        Nombre = "Rafael",
-        //        Correo = "raul.godoy16@tectijuana.edu.mx",
-        //        Telefono = "6645890390"
-        //    };
-
-        //    Jugador jugador = new Jugador()
-        //    {
-        //        Nombre="Raul",
-        //        NombreUsuario="Godoy",
-        //        Contrasena="123",
-        //        Edad=12,
-        //        Sexo="M",
-        //        IdTutor=1,
-        //        IdPsicologo=1
-        //    };
-
-        //    tutorDAO.Crear(tutor);
-        //    jugadorDAO.Crear(jugador);
+        if (jugadorDAO.Lista().Count<1)
+        {
+            Jugador jugador = new Jugador()
+            {
+                Nombre = "Jugador",
+                NombreUsuario = "Jugador1",
+                Contrasena = "contrasena",
+                Edad = 12,
+                Sexo = "M",
+                IdTutor = 1,
+                IdPsicologo = 1
+            };
+            jugadorDAO.Crear(jugador);
+        }
 
         //ConfiguracionDAO dao = new ConfiguracionDAO();
         //Configuracion configuracion = new Configuracion

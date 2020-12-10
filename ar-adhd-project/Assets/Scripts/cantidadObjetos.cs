@@ -9,6 +9,8 @@ public class cantidadObjetos : MonoBehaviour
     public GameObject objetivoPaleta, objetivoChocolate, objetivoPaletaDeHielo;
     public GameObject chocolate, paleta, paletaDeHielo;
     public GameObject nivelLabel;
+    public AudioSource audioSource;
+    public AudioClip AudioN1, AudioN2, AudioN3;
 
     FabricaDeObjetos fabrica;
     Objeto objetoObjetivo;
@@ -118,6 +120,18 @@ public class cantidadObjetos : MonoBehaviour
                 Destroy(objetivoPaletaDeHielo);
                 break;
         }
-
+        switch (MotorInferencia.nivel)
+        {
+            case 0:
+                audioSource.clip=AudioN1;
+                break;
+            case 1:
+                audioSource.clip = AudioN2;
+                break;
+            default:
+                audioSource.clip = AudioN3;
+                break;
+        }
+        audioSource.Play();
     }
 }
