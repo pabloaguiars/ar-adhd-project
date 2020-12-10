@@ -43,30 +43,27 @@ public class cantidadObjetos : MonoBehaviour
             Instanciar(Objeto.Paleta);
             Instanciar(Objeto.PaletaDeHielo);
             Instanciar(Objeto.Chocolate);
-        } 
+        }
         else
         {
             switch (objetoObjetivo)
             {
                 case Objeto.Paleta:
-                    Destroy(chocolate);
-                    Destroy(paletaDeHielo);
                     Instanciar(Objeto.Paleta);
                     break;
 
                 case Objeto.PaletaDeHielo:
-                    Destroy(chocolate);
-                    Destroy(paleta);
                     Instanciar(Objeto.PaletaDeHielo);
                     break;
 
                 default:
-                    Destroy(paleta);
-                    Destroy(paletaDeHielo);
                     Instanciar(Objeto.Chocolate);
                     break;
             }
         }
+        Destroy(paletaDeHielo);
+        Destroy(chocolate);
+        Destroy(paleta);
     }
 
     void Instanciar(Objeto objeto)
