@@ -19,7 +19,15 @@ public class Color : MonoBehaviour
         ColorObjeto colorObjeto = MotorInferencia.IteradorDeColores.Siguiente(objeto);
 
         TieneColores = MotorInferencia.TieneColores();
-        GetComponent<Renderer>().material.color = DecodificadorDeColor.decodificar(colorObjeto);
+
+        if(objeto==Objeto.PaletaDeHielo)
+        {
+            GetComponent<Renderer>().materials[1].color = DecodificadorDeColor.decodificar(colorObjeto);
+        }
+        else
+        {
+            GetComponent<Renderer>().material.color = DecodificadorDeColor.decodificar(colorObjeto);
+        }
     }
 
     // Update is called once per frame

@@ -103,7 +103,7 @@ public class cantidadObjetos : MonoBehaviour
 
                 if (tieneColores)
                 {
-                    objetivoPaletaDeHielo.GetComponent<Renderer>().material.color = DecodificadorDeColor.decodificar(colorObjetivo);
+                    objetivoPaletaDeHielo.GetComponent<Renderer>().materials[1].color = DecodificadorDeColor.decodificar(colorObjetivo);
                 }
                 Destroy(objetivoPaleta);
                 Destroy(objetivoChocolate);
