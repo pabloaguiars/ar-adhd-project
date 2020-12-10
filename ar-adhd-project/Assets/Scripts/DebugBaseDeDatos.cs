@@ -45,7 +45,8 @@ public class DebugBaseDeDatos : MonoBehaviour
                 Edad = 12,
                 Sexo = "M",
                 IdTutor = 1,
-                IdPsicologo = 1
+                IdPsicologo = 1,
+                Sesion=true
             };
             jugadorDAO.Crear(jugador);
         }
