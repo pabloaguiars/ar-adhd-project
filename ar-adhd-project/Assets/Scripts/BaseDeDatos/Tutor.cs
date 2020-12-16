@@ -15,7 +15,7 @@ public class Tutor
 
 public class TutorDAO
 {
-    private string CONNECTION_STRING = "URI=file:" + Application.dataPath + "/Plugins/BD.db";
+    private string CONNECTION_STRING = ServicioBaseDatos.getDatabasePath();
 
     public void Crear(Tutor Tutor)
     {

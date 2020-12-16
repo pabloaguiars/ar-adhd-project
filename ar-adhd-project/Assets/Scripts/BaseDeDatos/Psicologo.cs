@@ -17,7 +17,7 @@ public class Psicologo
 
 public class PsicologoDAO
 {
-    private string CONNECTION_STRING = "URI=file:" + Application.dataPath + "/Plugins/BD.db";
+    private string CONNECTION_STRING = ServicioBaseDatos.getDatabasePath();
 
     public void Crear(Psicologo Psicologo)
     {
