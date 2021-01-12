@@ -5,8 +5,9 @@ using System.Net;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
-public class Click : MonoBehaviour
+public class Click : MonoBehaviour,IDragHandler
 {
     public AudioSource correcto, incorrecto;
     public GameObject message;
@@ -17,6 +18,9 @@ public class Click : MonoBehaviour
     private int CantidadObjetos;
     private bool TieneColores, SeMueven;
     private static bool clic = false, clicAnterior = false;
+    private int nivel;
+
+    private float Z = 5.0f;
 
     Objeto objeto, objetivo;
 
@@ -43,6 +47,7 @@ public class Click : MonoBehaviour
         CantidadObjetos = MotorInferencia.CantidadObjetivos();
         TieneColores = MotorInferencia.TieneColores();
         SeMueven = MotorInferencia.SeMueven();
+        nivel = MotorInferencia.nivel;
     }
 
     private void Correcto()
@@ -52,7 +57,10 @@ public class Click : MonoBehaviour
         Debug.Log(objeto);
         message.GetComponent<Text>().text = "¡Bien hecho!";
         Invoke("Mensaje", .3f);
-        Destroy(gameObject, .35f);
+        if (nivel < 2)
+        {
+            Destroy(gameObject, .35f);
+        }
         //Evalua si la cantidad de aciertos es igual a la cantidad de Objetos objetivos
         if (toquesBuenos >= CantidadObjetos)
         {
@@ -77,38 +85,90 @@ public class Click : MonoBehaviour
 
     public void OnMouseDown()
     {
-        //Obtiene color del objeto seleccionado y objetivo
-        colorSeleccionado = gameObject.GetComponent<Renderer>().material.color;
+        if (nivel < 2)
+        {
+            //Obtiene color del objeto seleccionado y objetivo
+            colorSeleccionado = gameObject.GetComponent<Renderer>().material.color;
 
-        //Evaluacion de nombre del objeto y color
-        if (TieneColores)
-        {
-            if (objeto == objetivo && colorSeleccionado == colorObjetivo)
+            //Evaluacion de nombre del objeto y color
+            if (TieneColores)
             {
-                Correcto();
+                if (objeto == objetivo && colorSeleccionado == colorObjetivo)
+                {
+                    Correcto();
+                }
+                else
+                {
+                    Incorrecto();
+                }
             }
             else
             {
-                Incorrecto();
+                if (objeto == objetivo)
+                {
+                    Correcto();
+                }
+                else
+                {
+                    Incorrecto();
+                }
             }
-        } 
-        else
-        {
-            if (objeto == objetivo)
-            {
-                Correcto();
-            }
-            else
-            {
-                Incorrecto();
-            }
+
+            Debug.Log("Clics:" + toques);
+            Debug.Log("Aciertos:" + toquesBuenos);
+            Debug.Log("Errores:" + toquesMalos);
         }
-
-        Debug.Log("Clics:" + toques);
-        Debug.Log("Aciertos:" + toquesBuenos);
-        Debug.Log("Errores:" + toquesMalos);
     }
 
+    public void OnDrag(PointerEventData eventData)
+    {
+        if(nivel==2)
+        {
+            Vector3 mousePosition = Input.mousePosition;
+            mousePosition.z = Z;
+            transform.position = Camera.main.ScreenToWorldPoint(mousePosition);
+        }
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        if(nivel==2)
+        {
+            //Obtiene color del objeto seleccionado y objetivo
+            colorSeleccionado = gameObject.GetComponent<Renderer>().material.color;
+
+            //Evaluacion de nombre del objeto y color
+            if (TieneColores)
+            {
+                if (objeto == objetivo && colorSeleccionado == colorObjetivo)
+                {
+                    Correcto();
+                    Destroy(gameObject);
+                }
+                else
+                {
+                    Incorrecto();
+                }
+            }
+            else
+            {
+                if (objeto == objetivo)
+                {
+                    Correcto();
+                    Destroy(gameObject);
+                }
+                else
+                {
+                    Incorrecto();
+                }
+            }
+
+            Debug.Log("Clics:" + toques);
+            Debug.Log("Aciertos:" + toquesBuenos);
+            Debug.Log("Errores:" + toquesMalos);
+        }
+        
+    }
 
     // Update is called once per frame
     void Update()
