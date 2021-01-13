@@ -23,7 +23,7 @@ public class Configuracion
 
 public class ConfiguracionDAO
 {
-    private string CONNECTION_STRING = "URI=file:" + Application.dataPath + "/Plugins/BD.db";
+    private string CONNECTION_STRING = ServicioBaseDatos.getDatabasePath();
 
     public void Crear(Configuracion Configuracion)
     {

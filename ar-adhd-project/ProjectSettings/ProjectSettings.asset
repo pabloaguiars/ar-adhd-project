@@ -710,7 +710,7 @@ PlayerSettings:
       daydreamIconForeground: {fileID: 0}
       daydreamIconBackground: {fileID: 0}
   cloudServicesEnabled:
-    Collab: 1
+    Collab: 0
     UNet: 1
   luminIcon:
     m_Name: 
@@ -731,10 +731,10 @@ PlayerSettings:
   facebookXfbml: 0
   facebookFrictionlessRequests: 1
   apiCompatibilityLevel: 6
-  cloudProjectId: 9b1d069a-7a3f-4bd9-9919-816eba6e88c1
+  cloudProjectId: de834105-44b0-46ae-9180-cdf03d3467e5
   framebufferDepthMemorylessMode: 0
-  projectName: microjuego1
-  organizationId: minigody
+  projectName: Sweet Victory
+  organizationId: unity_jmrb6fl172sy0a
   cloudEnabled: 0
   enableNativePlatformBackendsForNewInputSystem: 0
   disableOldInputManagerSupport: 0

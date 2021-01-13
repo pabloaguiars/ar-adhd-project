@@ -8,6 +8,7 @@ public class cantidadObjetos : MonoBehaviour
 {
     public GameObject objetivoPaleta, objetivoChocolate, objetivoPaletaDeHielo;
     public GameObject chocolate, paleta, paletaDeHielo;
+    public GameObject Canasta;
     public GameObject nivelLabel;
     public AudioSource audioSource;
     public AudioClip AudioN1, AudioN2, AudioN3;
@@ -124,9 +125,11 @@ public class cantidadObjetos : MonoBehaviour
         {
             case 0:
                 audioSource.clip=AudioN1;
+                Destroy(Canasta);
                 break;
             case 1:
                 audioSource.clip = AudioN2;
+                Destroy(Canasta);
                 break;
             default:
                 audioSource.clip = AudioN3;
