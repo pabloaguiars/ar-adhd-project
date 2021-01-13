@@ -50,7 +50,7 @@ public class FabricaDeObjetos : MonoBehaviour
 {
     private static readonly Quaternion PALETA = Quaternion.Euler(-89, -43, 43);
     private static readonly Quaternion PALETA_DE_HIELO = Quaternion.Euler(-90, 0, 0);
-    private static readonly Quaternion CHOCOLATE = Quaternion.identity;
+    private static readonly Quaternion CHOCOLATE = Quaternion.Euler(0, 180, 0);
     private static readonly Vector3 posicion = Random.insideUnitSphere;
 
     private GameObject[] objetos;
