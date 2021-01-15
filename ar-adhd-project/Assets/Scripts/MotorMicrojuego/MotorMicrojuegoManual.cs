@@ -9,9 +9,13 @@ class MotorMicrojuegoManual : IMotorMicrojuego
     private string escenaResultados;
     private string escenaSeleccion;
     private List<string> escenas;
-    private int indice;
+    private int indice; 
 
-    public MotorMicrojuegoManual(string EscenaPrincipal, string EscenaResultados, string EscenaSeleccion, List<string> Escenas)
+    public MotorMicrojuegoManual(
+        string EscenaPrincipal, 
+        string EscenaResultados, 
+        string EscenaSeleccion,
+        List<string> Escenas)
     {
         escenaPrincipal = EscenaPrincipal;
         escenaResultados = EscenaResultados;

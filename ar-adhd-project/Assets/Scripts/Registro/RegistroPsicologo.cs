@@ -16,6 +16,14 @@ public class RegistroPsicologo : MonoBehaviour
     void Start()
     {
         PsicologoDAO = new PsicologoDAO();
+        if (PsicologoScan.ValorEscaneado != null)
+        {
+            string[] campos = PsicologoScan.ValorEscaneado.Split();
+            nombre.text = campos[0];
+            correo.text = campos[1];
+            telefono.text = campos[2];
+            cedula.text = campos[3];
+        }
     }
 
     public void Crear()
@@ -27,6 +35,8 @@ public class RegistroPsicologo : MonoBehaviour
             Telefono = telefono.text,
             Contrasena = "SweetVictory",
         });
+
+        MotorMicrojuego.AbrirRegistroTutor();
     }
 
     // Update is called once per frame

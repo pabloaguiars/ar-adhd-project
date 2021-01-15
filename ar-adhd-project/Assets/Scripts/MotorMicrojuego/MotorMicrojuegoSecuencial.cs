@@ -10,8 +10,12 @@ class MotorMicrojuegoSecuencial : IMotorMicrojuego
     private List<string> escenas;
     private int indice;
 
-    public MotorMicrojuegoSecuencial(string EscenaPrincipal, string EscenaResultados, List<string> Escenas)
+    public MotorMicrojuegoSecuencial(
+        string EscenaPrincipal, 
+        string EscenaResultados,
+        List<string> Escenas)
     {
+
         escenaPrincipal = EscenaPrincipal;
         escenaResultados = EscenaResultados;
         escenas = Escenas;

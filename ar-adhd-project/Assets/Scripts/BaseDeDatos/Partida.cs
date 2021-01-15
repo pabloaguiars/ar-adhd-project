@@ -257,6 +257,78 @@ public class PartidaDAO
         return partidas;
     }
 
+    public void CalcularMetricas(float[] Promedio, float[] DesviacionEstandar)
+    {
+        Promedio[0] = 0;
+        DesviacionEstandar[0] = 0;
+
+        List<Partida> partidas = new List<Partida>();
+        string query = @"
+            SELECT 
+	            IFNULL(DIST_AVG, 0.0), 
+				IFNULL(
+					(
+						SELECT 
+							SUM((CAST(Aciertos + 1 AS REAL)/CAST(Intentos + 1 AS REAL) - DIST_AVG) * 
+								(CAST(Aciertos + 1 AS REAL)/CAST(Intentos + 1 AS REAL) - DIST_AVG)) / (COUNT(*) - 1)
+						FROM Partidas
+					), 0.0
+				) AS DIST_VAR
+            FROM (
+	            SELECT AVG(CAST(Aciertos + 1 AS REAL)/CAST(Intentos + 1 AS REAL)) AS DIST_AVG
+	            FROM Partidas
+            );
+         ";
+
+        using (SqliteConnection connection = new SqliteConnection(CONNECTION_STRING))
+        {
+            connection.Open();
+            using (SqliteCommand command = new SqliteCommand(query, connection))
+            {
+                SqliteDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    Promedio[0] = reader.GetFloat(0);
+                    DesviacionEstandar[0] = (float) Math.Sqrt(reader.GetFloat(1));
+                }
+            }
+        }
+    }
+
+    public float CalcularMetricaJugador()
+    {
+        float Promedio = 0;
+
+        List<Partida> partidas = new List<Partida>();
+        string query = @"
+            SELECT 
+	            IFNULL(AVG(CAST(Aciertos + 1 AS REAL)/CAST(Intentos + 1 AS REAL)), 0.0) AS DIST_AVG
+            FROM (
+	            SELECT Aciertos, Intentos
+	            FROM Partidas
+	            JOIN Jugadores 
+	            ON Jugadores.IdJugador = Partidas.IdJugador
+	            WHERE Sesion = 1
+	            ORDER BY FechaTiempo
+	            LIMIT 3
+            );
+         ";
+
+        using (SqliteConnection connection = new SqliteConnection(CONNECTION_STRING))
+        {
+            connection.Open();
+            using (SqliteCommand command = new SqliteCommand(query, connection))
+            {
+                SqliteDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    Promedio = reader.GetFloat(0);
+                }
+            }
+        }
+        return Promedio;
+    }
+
     private Partida LeerPartida(SqliteDataReader reader)
     {
         ColumnReader columnReader = new ColumnReader(reader);

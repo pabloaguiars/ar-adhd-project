@@ -79,6 +79,7 @@ public class Click : MonoBehaviour,IDragHandler
 
         if (toquesMalos >= 3)
         {
+            new BitacoraResultados().Guardar();
             MostrarResultados();
         }
     }

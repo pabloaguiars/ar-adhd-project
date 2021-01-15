@@ -11,7 +11,10 @@ public class MotorMicrojuegoAleatoreo : IMotorMicrojuego
     private Random random;
     private int indice;
 
-    public MotorMicrojuegoAleatoreo(string EscenaPrincipal, string EscenaResultados, List<string> Escenas)
+    public MotorMicrojuegoAleatoreo(
+        string EscenaPrincipal, 
+        string EscenaResultados,
+        List<string> Escenas)
     {
         escenaPrincipal = EscenaPrincipal;
         escenaResultados = EscenaResultados;

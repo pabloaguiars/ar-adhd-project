@@ -23,52 +23,68 @@ public class PsicologoQR : MonoBehaviour
         writer.Options.Height = texture.height;
         writer.Options.Margin = 10;
 
-        BitMatrix matrix = writer.Encode("Hola! Soy el senior psicologo y vengo a piscoanalizarte uwu");
-        matrix.rotate180();
-        ZXing.Common.BitArray row = new ZXing.Common.BitArray(matrix.RowSize);
+        PsicologoDAO psicologoDAO = new PsicologoDAO();
+        List<Psicologo> psicologos = psicologoDAO.Lista();
 
-        // get image data
-        int width = texture.width;
-        int height = texture.height;
-
-        for (int y = 0; y < height; y++)
+        
+        if (psicologos.Count > 0)
         {
-            row = matrix.getRow(y, row);
-            row.reverse(); // they are backwards wtf?
-            int[] pixels = row.Array;
+            Psicologo psicologo = psicologos[0];
+            string representation = string.Format(
+                "{0}\n{1}\n{2}\n{3}", 
+                psicologo.Nombre,
+                psicologo.Correo, 
+                psicologo.Telefono, 
+                psicologo.Cedula
+            );
 
-            int int_i = 0;
-            int bit_i = 0;
-            for (int x = 0; x < width; x++)
+            BitMatrix matrix = writer.Encode(representation);
+            matrix.rotate180();
+            ZXing.Common.BitArray row = new ZXing.Common.BitArray(matrix.RowSize);
+
+            // get image data
+            int width = texture.width;
+            int height = texture.height;
+
+            for (int y = 0; y < height; y++)
             {
-                int bit_mask = 1 << bit_i++;
-                int int_value = pixels[int_i];
-                bool bit_value = (int_value & bit_mask) == bit_mask;
+                row = matrix.getRow(y, row);
+                row.reverse(); // they are backwards wtf?
+                int[] pixels = row.Array;
 
-                if (bit_i > 31)
+                int int_i = 0;
+                int bit_i = 0;
+                for (int x = 0; x < width; x++)
                 {
-                    bit_i = 0;
-                    int_i++;
+                    int bit_mask = 1 << bit_i++;
+                    int int_value = pixels[int_i];
+                    bool bit_value = (int_value & bit_mask) == bit_mask;
+
+                    if (bit_i > 31)
+                    {
+                        bit_i = 0;
+                        int_i++;
+                    }
+
+                    UnityEngine.Color color;
+                    if  (bit_value)
+                    {
+                        color = UnityEngine.Color.black;
+                    } 
+                    else
+                    {
+                        color = UnityEngine.Color.white;
+                    }
+
+                    texture.SetPixel(x, y, color);
                 }
-
-                UnityEngine.Color color;
-                if  (bit_value)
-                {
-                    color = UnityEngine.Color.black;
-                } 
-                else
-                {
-                    color = UnityEngine.Color.white;
-                }
-
-                texture.SetPixel(x, y, color);
             }
-        }
 
-        texture.Apply();
-        image.texture = texture;
-        //imageFitter.aspectRatio = 1.0f;
-        //image.material.mainTexture = texture;
+            texture.Apply();
+            image.texture = texture;
+            //imageFitter.aspectRatio = 1.0f;
+            //image.material.mainTexture = texture;
+        }
     }
 
     // Update is called once per frame

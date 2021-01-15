@@ -7,6 +7,7 @@ public class RegistroJugador : MonoBehaviour
 {
     JugadorDAO JugadorDAO;
     PsicologoDAO PsicologoDAO;
+    TutorDAO TutorDAO;
     private static Jugador Jugador;
 
     [SerializeField] InputField nombre;
@@ -15,6 +16,7 @@ public class RegistroJugador : MonoBehaviour
     [SerializeField] Dropdown genero;
     [SerializeField] InputField contrasena;
     [SerializeField] InputField confirmarContrasena;
+    [SerializeField] Button buttonInicioSesion;
 
     [SerializeField] Dropdown tutor;
 
@@ -23,28 +25,56 @@ public class RegistroJugador : MonoBehaviour
     {
         JugadorDAO = new JugadorDAO();
         PsicologoDAO = new PsicologoDAO();
+        TutorDAO = new TutorDAO();
+
+
+        if (!MotorMicrojuego.DesdeIniciarSesion)
+        {
+            Destroy(buttonInicioSesion.gameObject);
+        }
     }
 
     public void Nuevo()
     {
-        List<Psicologo> Psicologos = PsicologoDAO.Lista();
-        Psicologo Psicologo = Psicologos[0];
 
-        Jugador = new Jugador() { 
-            Nombre = nombre.text,
-            NombreUsuario = nombreUsuario.text,
-            Sexo = genero.options[genero.value].text,
-            Edad = int.Parse(edad.text),
-            Contrasena = contrasena.text,
-            Psicologo = Psicologo
-        };
+        if (contrasena.text == confirmarContrasena.text) 
+        { 
+            List<Psicologo> Psicologos = PsicologoDAO.Lista();
+            Psicologo Psicologo = Psicologos[0];
+
+            List<Tutor> Tutores = TutorDAO.Lista();
+            Tutor Tutor = Tutores[0];
+
+            Jugador = new Jugador() { 
+                Nombre = nombre.text,
+                NombreUsuario = nombreUsuario.text,
+                Sexo = genero.options[genero.value].text,
+                Edad = int.Parse(edad.text),
+                Contrasena = contrasena.text,
+                Psicologo = Psicologo,
+                Tutor = Tutor
+            };
+
+            JugadorDAO.Crear(Jugador);
+            MotorMicrojuego.MenuPrincipal();
+        }
     }
 
-    public void Crear()
+    public void EliminarTutores()
     {
-        if (Jugador != null)
+        if (MotorMicrojuego.DesdeIniciarSesion)
         {
-            Jugador.IdTutor = 0;
+            MotorMicrojuego.AbrirLogin();
+        }
+        else
+        {
+            TutorDAO tutorDAO = new TutorDAO();
+            List<Tutor> tutores = tutorDAO.Lista();
+            foreach (Tutor tutor in tutores)
+            {
+                tutorDAO.Eliminar(tutor);
+            }
+            MotorMicrojuego.AbrirRegistroTutor();
         }
     }
 

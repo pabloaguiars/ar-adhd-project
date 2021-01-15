@@ -23,4 +23,44 @@ public class MotorMicrojuegoMenuScript : MonoBehaviour
     {
         MotorMicrojuego.MenuPrincipal();
     }
+
+    public void AbrirRegistroPsicologo()
+    {
+        MotorMicrojuego.AbrirRegistroPsicologo();
+    }
+
+    public void AbrirRegistroScan()
+    {
+        MotorMicrojuego.AbrirPsicologoScan();
+    }
+
+    public void AbrirPsicologoQr()
+    {
+        MotorMicrojuego.AbrirPsicologoQr();
+    }
+
+    public void AbrirRegistroJugador()
+    {
+        MotorMicrojuego.AbrirRegistroJugador();
+    }
+
+    public void AbrirRegistroJugadorInicioSesion()
+    {
+        MotorMicrojuego.AbrirRegistroJugadorIncioSesion();
+    }
+
+    public void AbrirLogin()
+    {
+        MotorMicrojuego.AbrirLogin();
+    }
+
+    public void AbrirRegistroTutor()
+    {
+        MotorMicrojuego.AbrirRegistroTutor();
+    }
+
+    public void CerrarSesion()
+    {
+        MotorMicrojuego.CerrarSesion();
+    }
 }

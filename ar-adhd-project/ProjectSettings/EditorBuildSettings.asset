@@ -23,4 +23,16 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/PsicologoQR.unity
     guid: 9d6260b3eef1a5140ac52d89e24e6037
+  - enabled: 1
+    path: Assets/Scenes/Login.unity
+    guid: 84b389761f6215d40bedbd8bf376ae46
+  - enabled: 1
+    path: Assets/Scenes/RegistroJugador.unity
+    guid: 1b47b21e6b9144d44a7693fd503b2ef6
+  - enabled: 1
+    path: Assets/Scenes/RegistroTutor.unity
+    guid: 9181f302faadb8a4ba8e9d2de47acf95
+  - enabled: 1
+    path: Assets/Scenes/RegistroPsicologo.unity
+    guid: 7ab28bb1c32389e438a81fe04ef5564d
   m_configObjects: {}

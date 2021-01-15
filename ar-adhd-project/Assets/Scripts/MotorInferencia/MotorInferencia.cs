@@ -121,8 +121,31 @@ public class MotorInferencia
 
     public static void DeterminarObjetivo()
     {
+        float[] Promedio = new float[1];
+        float[] DesviacionEstandar = new float[1];
+        float PromedioJugador = 0;
+
+        PartidaDAO partidaDAO = new PartidaDAO();
+        partidaDAO.CalcularMetricas(Promedio, DesviacionEstandar);
+        PromedioJugador = partidaDAO.CalcularMetricaJugador();
+
+        Debug.Log(string.Format("Promedio: {0}, Std: {1}, Promedio Jugador: {2}", Promedio[0], DesviacionEstandar[0], PromedioJugador));
+        if (PromedioJugador < Promedio[0] - DesviacionEstandar[0])
+        {
+            dificultad = 0;
+        }
+        else if (PromedioJugador > Promedio[0] - DesviacionEstandar[0] && PromedioJugador <= Promedio[0])
+        {
+            dificultad = 1;
+        }
+        else
+        {
+            dificultad = 2;
+        }
+
+
         nivel = Random.Range(0, 3);
-        dificultad = Random.Range(0, 3);
+        //dificultad = Random.Range(0, 3);
 
         objetivo = (Objeto)Random.Range(0, 3);
         colorObjeto = (ColorObjeto)Random.Range(0, 3);

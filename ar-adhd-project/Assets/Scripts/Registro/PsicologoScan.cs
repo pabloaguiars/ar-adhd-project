@@ -10,6 +10,8 @@ using UnityEngine.SceneManagement;
 // https://stackoverflow.com/questions/30056471/how-to-make-the-script-wait-sleep-in-a-simple-way-in-unity
 public class PsicologoScan : MonoBehaviour
 {
+    public static string ValorEscaneado;
+
     public RawImage image;
     public RectTransform imageParent;
     public AspectRatioFitter imageFitter;
@@ -35,6 +37,7 @@ public class PsicologoScan : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        ValorEscaneado = null;
         StartCoroutine(InitializeCamera());
     }
 
@@ -69,8 +72,8 @@ public class PsicologoScan : MonoBehaviour
         activeCameraTexture.filterMode = FilterMode.Trilinear;
 
         image.SetNativeSize();
-        //image.texture = activeCameraTexture;
-        image.material.mainTexture = activeCameraTexture;
+        image.texture = activeCameraTexture;
+        //image.material.mainTexture = activeCameraTexture;
         activeCameraTexture.Play();
 
         yield break;
@@ -145,6 +148,13 @@ public class PsicologoScan : MonoBehaviour
     {
         Debug.Log(result.BarcodeFormat.ToString());
         Debug.Log(result.Text);
-        testText.text = result.Text;
+        ValorEscaneado = result.Text;
+
+        if (activeCameraTexture != null && activeCameraTexture.isPlaying)
+        {
+            activeCameraTexture.Stop();
+        }
+
+        MotorMicrojuego.AbrirRegistroPsicologo();
     }
 }

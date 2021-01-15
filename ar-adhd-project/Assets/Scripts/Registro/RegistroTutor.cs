@@ -25,6 +25,18 @@ public class RegistroTutor : MonoBehaviour
             Correo = correo.text,
             Telefono = telefono.text,
         });
+
+        MotorMicrojuego.AbrirRegistroJugador();
+    }
+
+    public void EliminarPsicologo()
+    {
+        PsicologoDAO psicologoDAO = new PsicologoDAO();
+        List<Psicologo> psicologos = psicologoDAO.Lista();
+        foreach (Psicologo psicologo in psicologos)
+        {
+            psicologoDAO.Eliminar(psicologo);
+        }
     }
 
     // Update is called once per frame
