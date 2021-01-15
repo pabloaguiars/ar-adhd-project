@@ -257,27 +257,33 @@ public class PartidaDAO
         return partidas;
     }
 
-    public void CalcularMetricas(float[] Promedio, float[] DesviacionEstandar)
+    public void CalcularMetricas(float[] Cuartiles)
     {
-        Promedio[0] = 0;
-        DesviacionEstandar[0] = 0;
+        Cuartiles[0] = 0;
+        Cuartiles[1] = 0;
+        Cuartiles[2] = 0;
 
         List<Partida> partidas = new List<Partida>();
         string query = @"
             SELECT 
-	            IFNULL(DIST_AVG, 0.0), 
-				IFNULL(
-					(
-						SELECT 
-							SUM((CAST(Aciertos + 1 AS REAL)/CAST(Intentos + 1 AS REAL) - DIST_AVG) * 
-								(CAST(Aciertos + 1 AS REAL)/CAST(Intentos + 1 AS REAL) - DIST_AVG)) / (COUNT(*) - 1)
-						FROM Partidas
-					), 0.0
-				) AS DIST_VAR
-            FROM (
-	            SELECT AVG(CAST(Aciertos + 1 AS REAL)/CAST(Intentos + 1 AS REAL)) AS DIST_AVG
-	            FROM Partidas
-            );
+				IFNULL((
+					SELECT CAST(Aciertos + 1 AS REAL)/CAST(Intentos + 1 AS REAL) AS Q1
+					FROM Partidas
+					ORDER BY Q1
+					LIMIT 1 OFFSET (SELECT 1 * COUNT(*) / 4 FROM Partidas)
+				), 0.0) AS DIST_Q1,
+				IFNULL((
+					SELECT CAST(Aciertos + 1 AS REAL)/CAST(Intentos + 1 AS REAL) AS Q2
+					FROM Partidas
+					ORDER BY Q2
+					LIMIT 1 OFFSET (SELECT 2 * COUNT(*) / 4 FROM Partidas)
+				), 0.0) AS DIST_Q2,
+				IFNULL((
+					SELECT CAST(Aciertos + 1 AS REAL)/CAST(Intentos + 1 AS REAL) AS Q3
+					FROM Partidas
+					ORDER BY Q3
+					LIMIT 1 OFFSET (SELECT 3 * COUNT(*) / 4 FROM Partidas)
+				), 0.0) AS DIST_Q3;
          ";
 
         using (SqliteConnection connection = new SqliteConnection(CONNECTION_STRING))
@@ -288,8 +294,9 @@ public class PartidaDAO
                 SqliteDataReader reader = command.ExecuteReader();
                 while (reader.Read())
                 {
-                    Promedio[0] = reader.GetFloat(0);
-                    DesviacionEstandar[0] = (float) Math.Sqrt(reader.GetFloat(1));
+                    Cuartiles[0] = reader.GetFloat(0);
+                    Cuartiles[1] = reader.GetFloat(1);
+                    Cuartiles[2] = reader.GetFloat(2);
                 }
             }
         }
@@ -309,7 +316,7 @@ public class PartidaDAO
 	            JOIN Jugadores 
 	            ON Jugadores.IdJugador = Partidas.IdJugador
 	            WHERE Sesion = 1
-	            ORDER BY FechaTiempo
+	            ORDER BY FechaTiempo DESC
 	            LIMIT 3
             );
          ";
